@@ -59,13 +59,26 @@ worker → analyzer → RAG → review path.
 ## Run the whole platform (docker-compose)
 
 ```bash
-docker compose up --build      # or: docker-compose up --build
+docker-compose up --build -d       # newer Docker: docker compose up --build -d
+docker-compose ps                  # wait until services are healthy/up
 # dashboard: http://localhost:5173    api: http://localhost:8081
 ```
 
-This starts Postgres (pgvector), Redis, and all five services, offline by
-default. Enqueue a sample review from the host with `make demo` (point
-`ANALYZER_URL` at the compose analyzer if running the Go binary locally).
+This starts Postgres (pgvector), Redis, and all five services, **offline by
+default** (no GitHub account or LLM key needed).
+
+Now feed it some pull requests so the dashboard fills up:
+
+```bash
+./scripts/send-sample-prs.sh       # posts signed sample PR webhooks
+docker-compose logs -f worker      # watch each review happen
+```
+
+Open **http://localhost:5173** — you'll see the PRs, their risk scores, and
+hotspot files. In offline mode every PR is reviewed against the same built-in
+sample diff, so metrics look similar; real GitHub PRs (below) give varied data.
+
+Tear down with `docker-compose down -v`.
 
 ## Going real (GitHub + LLM)
 
