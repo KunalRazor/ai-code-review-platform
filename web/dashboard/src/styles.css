@@ -1,0 +1,68 @@
+:root {
+  --bg: #0e1116;
+  --panel: #171b22;
+  --border: #262c36;
+  --text: #e6e9ef;
+  --muted: #8a94a6;
+  --accent: #4c6ef5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+header h1 { margin: 0 0 4px; font-size: 28px; }
+.muted { color: var(--muted); margin: 0; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+.card h2 { margin: 0 0 12px; font-size: 16px; }
+.card.error { border-color: #e5484d; color: #ffb4b4; }
+
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+.stat { text-align: center; }
+.stat-value { font-size: 32px; font-weight: 700; }
+.stat-label { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+.chart { display: flex; flex-direction: column; gap: 8px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-label { width: 44px; color: var(--muted); font-size: 12px; text-align: right; }
+.bar-track { flex: 1; background: #0b0e13; border-radius: 6px; height: 16px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 6px; transition: width 0.3s ease; }
+.bar-value { width: 28px; font-size: 12px; text-align: left; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+.add { color: #30a46c; }
+.del { color: #e5484d; }
+
+.pill {
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+code { background: #0b0e13; padding: 1px 5px; border-radius: 4px; }

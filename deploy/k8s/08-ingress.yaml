@@ -1,0 +1,33 @@
+# Routes external traffic:
+#   /webhook  -> receiver (GitHub posts here)
+#   /api      -> insights API (dashboard calls this)
+#   /         -> dashboard (React app)
+# Assumes an nginx ingress controller + cert-manager on the cluster.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ai-code-review
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts: ["review.example.com"] # replace with your domain
+      secretName: ai-code-review-tls
+  rules:
+    - host: review.example.com # replace with your domain
+      http:
+        paths:
+          - path: /webhook
+            pathType: Prefix
+            backend:
+              service: { name: receiver, port: { number: 80 } }
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: { name: api, port: { number: 80 } }
+          - path: /
+            pathType: Prefix
+            backend:
+              service: { name: dashboard, port: { number: 80 } }

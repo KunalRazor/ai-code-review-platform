@@ -1,0 +1,8 @@
+.git
+bin/
+*.out
+*.test
+analyzer/.venv
+web/dashboard/node_modules
+web/dashboard/dist
+data/

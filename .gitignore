@@ -1,0 +1,17 @@
+/bin/
+.env
+*.out
+*.test
+
+# Python analyzer
+analyzer/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Dashboard
+web/dashboard/node_modules/
+web/dashboard/dist/
+
+# Demo output
+data/

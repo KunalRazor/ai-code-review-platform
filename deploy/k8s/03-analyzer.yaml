@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analyzer
+  labels: { app: analyzer }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: analyzer }
+  template:
+    metadata:
+      labels: { app: analyzer }
+    spec:
+      containers:
+        - name: analyzer
+          # Replace OWNER and use a real tag.
+          image: ghcr.io/OWNER/acr-analyzer:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: DATABASE_URL
+              valueFrom: { configMapKeyRef: { name: acr-config, key: DATABASE_URL } }
+            - name: EMBEDDINGS_PROVIDER
+              valueFrom: { configMapKeyRef: { name: acr-config, key: EMBEDDINGS_PROVIDER } }
+            - name: LLM_PROVIDER
+              valueFrom: { configMapKeyRef: { name: acr-config, key: LLM_PROVIDER } }
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits: { cpu: "1", memory: "1Gi" }
+          readinessProbe:
+            httpGet: { path: /healthz, port: 9000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: analyzer
+spec:
+  selector: { app: analyzer }
+  ports:
+    - { port: 9000, targetPort: 9000 }

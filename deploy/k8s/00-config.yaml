@@ -1,0 +1,19 @@
+# Non-secret configuration shared by the Go services and the analyzer.
+# Flip OFFLINE to "true" for a keyless demo on a local cluster (kind/minikube):
+# the fixture GitHub provider + mock analyzer run with no GitHub token or LLM key.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acr-config
+  labels:
+    app.kubernetes.io/part-of: ai-code-review
+data:
+  OFFLINE: "false"
+  REDIS_ADDR: "redis:6379"
+  # Dev credentials; use a Secret + a managed Postgres in production.
+  DATABASE_URL: "postgres://acr:acr@postgres:5432/acr?sslmode=disable"
+  ANALYZER_URL: "http://analyzer:9000"
+  MIN_CONFIDENCE: "0.5"
+  # Analyzer providers (offline-capable defaults).
+  EMBEDDINGS_PROVIDER: "hash"
+  LLM_PROVIDER: "mock"
