@@ -4,6 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+# API base URL is baked at build time (Vite). Override via build arg.
+ARG VITE_API_URL=http://localhost:8081
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 # ---- Serve stage ----
