@@ -14,23 +14,7 @@ Actions CI.
 
 ## Architecture
 
-```
-        GitHub ──webhook(signed)──▶ receiver (Go) ──enqueue──▶ Redis (Asynq)
-                                    (verify HMAC, 202 fast)          │
-                                                                     ▼
-   dashboard (React) ◀── api (Go) ◀── Postgres ◀────────────  worker (Go)
-                                      (+ pgvector)          fetch diff/files
-                                                            compute insights
-                                                                     │ HTTP
-                                                                     ▼
-                                                    analyzer (Python, FastAPI)
-                                                    LangGraph: chunk → embed →
-                                                    RAG retrieve → LLM →
-                                                    structured JSON review
-                                                                     │
-                                              worker posts summary + inline
-                                              comments back to the PR
-```
+![Architecture](docs/architecture.svg)
 
 - **Async by design:** the receiver replies in milliseconds and the slow review
   happens in the worker, because GitHub times out webhooks in ~10s.

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 400" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="arw" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arwv" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 z" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1040" height="400" fill="#ffffff"/>
+  <text x="520" y="30" text-anchor="middle" font-size="21" font-weight="700" fill="#111827">AI Code Review &amp; PR Insights Platform</text>
+  <text x="520" y="52" text-anchor="middle" font-size="12.5" fill="#6b7280">Async pipeline · Go + Python · embeddings + pgvector RAG + LLM · runs fully offline</text>
+
+  <!-- back arrow: worker posts review to GitHub -->
+  <path d="M 670,95 Q 380,30 95,95" fill="none" stroke="#8b5cf6" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arwv)"/>
+  <text x="385" y="40" text-anchor="middle" font-size="10.5" fill="#8b5cf6">post review (summary + inline comments)</text>
+
+  <!-- row 1: ingest pipeline -->
+  <g>
+    <rect x="30" y="95" width="130" height="60" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="95" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">GitHub</text>
+    <text x="95" y="138" text-anchor="middle" font-size="10.5" fill="#374151">PR opened</text>
+  </g>
+  <g>
+    <rect x="205" y="95" width="170" height="60" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="290" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">Receiver (Go)</text>
+    <text x="290" y="138" text-anchor="middle" font-size="10.5" fill="#374151">verify HMAC · reply 202</text>
+  </g>
+  <g>
+    <rect x="410" y="95" width="150" height="60" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="485" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">Redis queue</text>
+    <text x="485" y="138" text-anchor="middle" font-size="10.5" fill="#374151">Asynq · retries</text>
+  </g>
+  <g>
+    <rect x="595" y="95" width="150" height="60" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="670" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">Worker (Go)</text>
+    <text x="670" y="138" text-anchor="middle" font-size="10.5" fill="#374151">orchestrate</text>
+  </g>
+  <g>
+    <rect x="780" y="88" width="240" height="76" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="900" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">Analyzer (Python)</text>
+    <text x="900" y="128" text-anchor="middle" font-size="10.5" fill="#374151">FastAPI + LangGraph</text>
+    <text x="900" y="145" text-anchor="middle" font-size="10.5" fill="#374151">embeddings → RAG → LLM → JSON</text>
+  </g>
+
+  <!-- row1 arrows -->
+  <line x1="160" y1="125" x2="203" y2="125" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="181" y="118" text-anchor="middle" font-size="9.5" fill="#6b7280">webhook</text>
+  <line x1="375" y1="125" x2="408" y2="125" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="391" y="118" text-anchor="middle" font-size="9.5" fill="#6b7280">enqueue</text>
+  <line x1="560" y1="125" x2="593" y2="125" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="576" y="118" text-anchor="middle" font-size="9.5" fill="#6b7280">job</text>
+  <line x1="745" y1="125" x2="778" y2="125" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="762" y="118" text-anchor="middle" font-size="9.5" fill="#6b7280">diff</text>
+
+  <!-- data tier -->
+  <g>
+    <rect x="390" y="248" width="200" height="70" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="490" y="272" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">PostgreSQL + pgvector</text>
+    <text x="490" y="290" text-anchor="middle" font-size="10.5" fill="#374151">PRs · reviews · insights</text>
+    <text x="490" y="306" text-anchor="middle" font-size="10.5" fill="#374151">file embeddings (RAG)</text>
+  </g>
+  <g>
+    <rect x="640" y="252" width="110" height="58" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="695" y="277" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">API (Go)</text>
+    <text x="695" y="294" text-anchor="middle" font-size="10.5" fill="#374151">read</text>
+  </g>
+  <g>
+    <rect x="795" y="252" width="200" height="58" rx="8" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="895" y="277" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">Dashboard (React)</text>
+    <text x="895" y="294" text-anchor="middle" font-size="10.5" fill="#374151">PR insights charts</text>
+  </g>
+
+  <!-- data arrows -->
+  <line x1="650" y1="156" x2="512" y2="246" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="600" y="205" text-anchor="middle" font-size="9.5" fill="#6b7280">persist</text>
+  <line x1="835" y1="165" x2="565" y2="246" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="742" y="205" text-anchor="middle" font-size="9.5" fill="#6b7280">pgvector RAG</text>
+  <line x1="590" y1="281" x2="638" y2="281" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+  <text x="614" y="274" text-anchor="middle" font-size="9.5" fill="#6b7280">read</text>
+  <line x1="750" y1="281" x2="793" y2="281" stroke="#6b7280" stroke-width="1.6" marker-end="url(#arw)"/>
+
+  <!-- legend -->
+  <g font-size="10.5" fill="#374151">
+    <rect x="30" y="360" width="12" height="12" rx="2" fill="#dbeafe" stroke="#3b82f6"/><text x="48" y="370">Go service</text>
+    <rect x="140" y="360" width="12" height="12" rx="2" fill="#fef3c7" stroke="#f59e0b"/><text x="158" y="370">Python analyzer</text>
+    <rect x="285" y="360" width="12" height="12" rx="2" fill="#dcfce7" stroke="#22c55e"/><text x="303" y="370">datastore</text>
+    <rect x="390" y="360" width="12" height="12" rx="2" fill="#fee2e2" stroke="#ef4444"/><text x="408" y="370">queue</text>
+    <rect x="470" y="360" width="12" height="12" rx="2" fill="#ede9fe" stroke="#8b5cf6"/><text x="488" y="370">external / UI</text>
+  </g>
+</svg>
